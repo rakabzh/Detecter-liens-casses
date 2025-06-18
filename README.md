@@ -1,6 +1,10 @@
 # Crawler de lien pour Compte CO2
 
-Ce script vérifie les liens internes du site https://www.compteco2.com/ et détecte les liens cassés.
+Ce script détecte dans le site https://www.compteco2.com/:
+- Les liens cassés
+- Les balises H1 en doubles
+- Les balises ALT manquantes
+- Les styles inlines
 
 ## Prérequis
 
