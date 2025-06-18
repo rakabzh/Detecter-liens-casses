@@ -3,7 +3,7 @@ import * as cheerio from "cheerio";
 
 const visited = new Set();
 
-async function crawl(url) {
+async function crawl(url, from) {
   if (visited.has(url)) return;
   visited.add(url);
 
@@ -17,22 +17,30 @@ async function crawl(url) {
       .get()
       .filter(
         (href) =>
-          href && !href.startsWith("mailto:") && !href.startsWith("tel:")
+          href &&
+          !href.startsWith("#") &&
+          !href.startsWith("mailto:") &&
+          !href.startsWith("tel:") &&
+          !href.startsWith("javascript:")
       )
       .map((href) => new URL(href, "https://www.compteco2.com/").href);
 
     for (const link of links) {
       if (link.includes("compteco2.com")) {
-        await crawl(link);
+        await crawl(link, url);
       }
     }
   } catch (error) {
     if (error.response) {
-      console.log(`X ${url} → ${error.response.status}`);
+      console.log(
+        `Dans cette page : ${from} → Ce lien pose probleme : ${url} → ${error.response.status}`
+      );
     } else {
-      console.log(`? ${url} → ${error.message}`);
+      console.log(
+        `Dans cette page : ${from} → Ce lien pose probleme : ${url} → ${error.message}`
+      );
     }
   }
 }
 
-crawl("https://www.compteco2.com/");
+crawl("https://www.compteco2.com/", "https://www.compteco2.com/");
