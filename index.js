@@ -22,7 +22,9 @@ async function crawl(url) {
       .map((href) => new URL(href, "https://www.compteco2.com/").href);
 
     for (const link of links) {
-      await crawl(link);
+      if (link.includes("compteco2.com")) {
+        await crawl(link);
+      }
     }
   } catch (error) {
     if (error.response) {
