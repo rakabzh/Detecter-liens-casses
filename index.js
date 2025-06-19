@@ -52,9 +52,7 @@ async function crawl(url, from) {
     }
 
     for (const link of links) {
-      if (link.includes("compteco2.com")) {
-        await crawl(link, url);
-      }
+      await crawl(link, url);
     }
   } catch (error) {
     if (error.response) {
@@ -63,11 +61,9 @@ async function crawl(url, from) {
       );
       */
     } else {
-      /*
       console.log(
         `Dans cette page : ${from} → Ce lien pose probleme : ${url} → ${error.message}`
       );
-      */
     }
   }
 }
